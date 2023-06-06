@@ -26,6 +26,8 @@ class Processor:
 
             result = value1 + value2
             self.registers[destination_index] = result
+            # Mostrar el valor calculado en la GUI
+            self.output(result)
 
         elif opcode == 3:  # SUB
             register_index1 = operands[0]
@@ -42,6 +44,8 @@ class Processor:
             register_index = operands[0]
             address = operands[1]
             value = self.registers[register_index]
+
+            self.registers[register_index] = address
             self.write_memory(address, value)
 
         elif opcode == 5:  # LDI

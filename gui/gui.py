@@ -29,7 +29,21 @@ class GUI:
         self.registers_text = tk.Text(self.window, width=40, height=10)
         self.registers_text.pack()
 
+        #Contenido de la memoria
+        self.memory_label = tk.Label(self.window, text="Contenido de la memoria:")
+        self.memory_label.pack()
+
+        self.memory_text = tk.Text(self.window, width=40, height=10)
+        self.memory_text.pack()
+
         self.window.mainloop()
+
+    def update_memory_text(self):
+        memory_text = ""
+        for i, value in enumerate(self.processor.memory):
+            memory_text += f"Dirección {i}: {value}\n"
+        self.memory_text.delete("1.0", tk.END)
+        self.memory_text.insert(tk.END, memory_text)
 
     def update_registers_text(self):
         registers_text = ""
@@ -53,4 +67,14 @@ class GUI:
         self.processor.execute_instruction(instruction)
 
         # Actualizar la visualización de los registros en la GUI
+        self.update_memory_text()
+
+        # Actualizar la visualización de los registros en la GUI
         self.update_registers_text()
+
+    def output(self, value):
+        output_label = tk.Label(self.window, text="Output:")
+        output_label.pack()
+
+        output_value = tk.Label(self.window, text=value)
+        output_value.pack()
